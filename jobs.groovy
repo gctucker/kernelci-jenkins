@@ -12,11 +12,11 @@ def KCI_BISECTION_CALLBACK_ID = System.getenv("KCI_BISECTION_CALLBACK_ID")
 def KCI_BISECTION_EMAIL_RECIPIENTS = System.getenv("KCI_BISECTION_EMAIL_RECIPIENTS")
 def KCI_BISECTION_TREES_WHITELIST = System.getenv("KCI_BISECTION_TREES_WHITELIST")
 def KCI_BISECTION_LABS_WHITELIST = System.getenv("KCI_BISECTION_LABS_WHITELIST")
-def KCI_MONITOR_CRON = System.getenv("KCI_MONITOR_CRON")
+def KCI_MONITOR_CRON = 'H * * * *'  // HACK
 def KCI_JENKINS_BRANCH = System.getenv("KCI_JENKINS_BRANCH")
 def KCI_JENKINS_URL = System.getenv("KCI_JENKINS_URL")
 
-pipelineJob('kernel-tree-monitor') {
+pipelineJob('gtucker/kernel-tree-monitor') {
   definition {
     cpsScm {
       lightweight(true)
