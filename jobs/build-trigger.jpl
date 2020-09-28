@@ -299,6 +299,7 @@ def buildKernelStep(job, arch, defconfig, build_env, opts, labs, kci_core) {
     j.addStrParams(job_params, str_params)
 
     return {
+        error "HACK - aborting here"
         def res = build(job: job, parameters: job_params, propagate: false)
         print("${res.number}: ${arch} ${defconfig} ${build_env} ${res.result}")
         if (res.result == "SUCCESS") {
