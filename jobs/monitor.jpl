@@ -87,7 +87,7 @@ check_new_commit \
     def j = new Job()
     j.addStrParams(job_params, str_params)
 
-    build(job: job, parameters: job_params, propagate: false, wait: false)
+    //build(job: job, parameters: job_params, propagate: false, wait: false)
 }
 
 node("docker && monitor") {
