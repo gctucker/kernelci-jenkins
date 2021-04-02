@@ -274,6 +274,9 @@ def buildKernelStep(job, arch, defconfig, build_env, opts, labs, kci_core) {
         parallel_builds = ""
     }
 
+    node_label = "k8s-big-azure"
+    parallel_builds = ""
+
     def str_params = [
         'ARCH': arch,
         'DEFCONFIG': defconfig,
