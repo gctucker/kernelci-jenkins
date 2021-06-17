@@ -673,10 +673,6 @@ def bisection(kci_core, kdir, checks) {
     def current = getSHA(kdir)
     def iteration = 1
 
-    print("Aborting now...")
-    currentBuild.result = 'ABORTED'
-    return
-
     while (previous != current) {
         def tag = createTag(kdir, iteration)
         def status = null
