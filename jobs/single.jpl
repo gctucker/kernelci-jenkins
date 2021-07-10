@@ -129,31 +129,8 @@ git symbolic-ref HEAD refs/heads/${params.KERNEL_BRANCH}
 }
 
 def fetchLabInfo(kci_core) {
+    /* HACK - keep a copy in git */
     dir(kci_core) {
-        def token = "${params.LAB}-lava-api"
-        def retry = 3
-
-        while (retry--) {
-            try {
-                withCredentials([string(credentialsId: token,
-                                        variable: 'SECRET')]) {
-            sh(script: """\
-./kci_test \
-get_lab_info \
---lab-config=${params.LAB} \
---lab-json=${env._LAB_JSON} \
---user=kernel-ci \
---lab-token=${SECRET} \
-""")
-                    retry = 0
-                }
-            } catch (error) {
-                if (retry)
-                    print("Error with ${lab}: ${error}, retrying...")
-                else
-                    throw error
-            }
-        }
         stash(name: env._LAB_JSON, includes: env._LAB_JSON)
     }
 }
@@ -363,7 +340,7 @@ node("docker && bisection") {
     /* Global pipeline constants */
     env._BMETA_JSON = "bmeta.json"
     env._ARTIFACTS_JSON = "artifacts.json"
-    env._LAB_JSON = "lab-info.json"
+    env._LAB_JSON = "${params.LAB}.json"
 
     def j = new Job()
     def kci_core = "${env.WORKSPACE}/kernelci-core"
